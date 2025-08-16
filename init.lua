@@ -357,6 +357,80 @@ later(function()
     highlight = { enable = true },
   })
 end)
+
+later(function()
+  add("zenarvus/md-agenda.nvim")
+  require("md-agenda").setup({
+    --- REQUIRED ---
+    agendaFiles = {
+      "~/Dropbox/Note/task.md",
+    },
+    --- OPTIONAL ---
+    -- Number of days to display on one agenda view page. Default: 10
+    agendaViewPageItems=10,
+    -- Number of days before the deadline to show a reminder for the task in the agenda view. Default: 30
+    remindDeadlineInDays=30,
+    -- Number of days before the scheduled time to show a reminder for the task in the agenda view. Default: 10
+    remindScheduledInDays=10,
+    -- Number of past days to show in the habit view. Default: 24
+    habitViewPastItems=24,
+    -- Number of future days to show in the habit view. Default: 3
+    habitViewFutureItems=3,
+    -- For folding logbook entries. Default: {{{,}}}
+    foldmarker="{{{,}}}",
+    -- Custom types that you can use instead of TODO. Default: {}
+    -- The plugin will give an error if you use RGB colors (e.g. #ffffff)
+    customTodoTypes={SOMEDAY="magenta"}, -- A map of custom item type and its color
+    dashboard = {
+      {"All TODO, WIP Items", -- Group name
+        {
+          -- Item types, e.g., {"TODO", "INFO"}. Gets the items that match one of the given types. Ignored if empty.
+          type={"TODO", "WIP"},
+          -- List of tags to filter. Use AND/OR conditions, e.g., {AND = {"tag1", "tag2"}, OR = {"tag1", "tag2"}}. Ignored if empty.
+          tags={},
+          -- Both, deadline and scheduled filters can take the same parameters.
+          -- "none", "today", "past", "nearFuture", "before-yyyy-mm-dd", "after-yyyy-mm-dd".
+          -- Ignored if empty.
+          deadline="",
+          scheduled="",
+        },
+        --{...}, Additional filter maps can be added in the same group.
+      },
+    },
+    -- Optional: Change agenda colors.
+    tagColor = "",
+    titleColor = "yellow",
+    todoTypeColor = "black",
+    habitTypeColor = "white",
+    infoTypeColor = "lightgreen",
+    dueTypeColor = "red",
+    doneTypeColor = "green",
+    cancelledTypeColor = "red",
+    completionColor = "lightgreen",
+    scheduledTimeColor = "black",
+    deadlineTimeColor = "red",
+    habitScheduledColor = "yellow",
+    habitDoneColor = "green",
+    habitProgressColor = "lightgreen",
+    habitPastScheduledColor = "darkyellow",
+    habitFreeTimeColor = "lightgreen",
+    habitNotDoneColor = "red",
+    habitDeadlineColor = "white",
+    })
+
+    -- Optional: Set keymaps for commands
+    vim.keymap.set('n', '<A-t>', ":CheckTask<CR>")
+    vim.keymap.set('n', '<A-c>', ":CancelTask<CR>")
+    vim.keymap.set('n', '<A-h>', ":HabitView<CR>")
+    vim.keymap.set('n', '<A-o>', ":AgendaDashboard<CR>")
+    vim.keymap.set('n', '<A-a>', ":AgendaView<CR>")
+    vim.keymap.set('n', '<A-s>', ":TaskScheduled<CR>")
+    vim.keymap.set('n', '<A-d>', ":TaskDeadline<CR>")
+    -- Optional: Create a custom agenda view command to only show the tasks with specific tags
+    vim.api.nvim_create_user_command("WorkAgenda", function()
+      vim.cmd("AgendaViewWTF work companyA") -- Run the agenda view with tag filters
+    end, {})
+  end)
 -- Key map
 vim.api.nvim_set_keymap('n', ':', ';', { noremap = true })
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true })
