@@ -339,6 +339,24 @@ now(function()
 
 end)
 
+-- treesitter
+
+later(function()
+  add({
+    source = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    hooks = {
+      post_checkout = function()
+        vim.cmd.TSUpdate()
+      end
+    },
+  })
+  ---@diagnostic disable-next-line: missing-fields
+  require('nvim-treesitter.configs').setup({
+    -- auto-install parsers
+    ensure_installed = { 'lua', 'vim', 'markdown' },
+    highlight = { enable = true },
+  })
+end)
 -- Key map
 vim.api.nvim_set_keymap('n', ':', ';', { noremap = true })
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true })
