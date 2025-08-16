@@ -100,64 +100,6 @@ now(function()
   vim.cmd.colorscheme('miniautumn')
 end)
 
--- completion
-now(function()
-  -- nvim-cmp の依存プラグイン
-  add('hrsh7th/vim-vsnip')
-  add('hrsh7th/cmp-nvim-lsp')
-  add('hrsh7th/cmp-buffer')
-  add('hrsh7th/cmp-path')
-  add('hrsh7th/cmp-cmdline')
-  add('hrsh7th/nvim-cmp')
-
-  -- nvim-cmp 本体と設定
-  -- Set up nvim-cmp.
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' },
-      { name = 'buffer' },
-    }),
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
-  })
-
-  -- cmdline設定
-  cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    }),
-    matching = { disallow_symbol_nonprefix_matching = false }
-  })
-
-end)
-
 -- オペレータ追加
 -- https://zenn.dev/kawarimidoll/books/6064bf6f193b51/viewer/eacaef
 later(function()
@@ -233,7 +175,63 @@ later(function()
   require('mini.tabline').setup()
 end)
 
--- メモ
+-- completion
+now(function()
+  add('hrsh7th/nvim-cmp')
+  -- nvim-cmp の依存プラグイン
+  add('hrsh7th/vim-vsnip')
+  add('hrsh7th/cmp-nvim-lsp')
+  add('hrsh7th/cmp-buffer')
+  add('hrsh7th/cmp-path')
+  add('hrsh7th/cmp-cmdline')
+
+  -- nvim-cmp 本体と設定
+  -- Set up nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+      { name = 'buffer' },
+    }),
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+  })
+
+  -- cmdline設定
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    }),
+    matching = { disallow_symbol_nonprefix_matching = false }
+  })
+
+end)
 
 -- Obsidian.nvim
 now(function()
@@ -493,7 +491,5 @@ vim.api.nvim_set_keymap('n', '<Leader>tc', ':<C-u>tabclose<CR>', { noremap = tru
 vim.api.nvim_set_keymap('n', 's', '', { noremap = true })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlights' })
 
-
 -- Terminal mappings
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
