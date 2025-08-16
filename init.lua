@@ -235,18 +235,17 @@ end)
 
 -- メモ
 
+-- Obsidian.nvim
 now(function()
   add('obsidian-nvim/obsidian.nvim')
+  local vault_path = "~/Dropbox/Note"
   require("obsidian").setup {
     legacy_commands = false,
     ui = {
-      enable = true
+      enable = false
     },
     attachments = {
       img_folder = "assets", -- This is the default
-      ---@param client obsidian.Client
-      ---@param path obsidian.Path the absolute path to the image file
-      ---@return type string
       img_text_func = function(client, path)
         path = client:vault_relative_path(path) or path
         return string.format("![%s](%s)", path.name, path)
@@ -255,7 +254,7 @@ now(function()
     workspaces = {
       {
         name = "memo",
-        path = "~/Note",
+        path = vault_path,
       },
     },
     completion = {
@@ -289,7 +288,7 @@ now(function()
     ---@return string
     note_id_func = function()
       -- Generate a unique ID YYYYMMDDHHMMSS format
-      return "blog/" .. tostring(os.date("%Y%m%d%H%M%S"))
+      return tostring(os.date("%Y%m%d%H%M%S"))
     end,
     ---@return table
     note_frontmatter_func = function(note)
