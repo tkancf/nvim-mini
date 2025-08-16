@@ -43,7 +43,7 @@ vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
 vim.o.undofile = true
 vim.o.updatetime = 250
 vim.o.visualbell = true
-vim.o.wrap = false
+vim.o.wrap = true
 vim.opt.clipboard:append { 'unnamedplus' }
 vim.scriptencoding = 'utf-8'
 
