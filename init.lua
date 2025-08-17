@@ -167,6 +167,10 @@ later(function()
   require('mini.tabline').setup()
 end)
 
+-- 編集支援
+later(function()
+  require('mini.pairs').setup()
+end)
 -- completion
 now(function()
   add('hrsh7th/nvim-cmp')
