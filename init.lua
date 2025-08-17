@@ -132,7 +132,6 @@ later(function()
 end)
 
 -- ファイル操作
-
 now(function()
   require('mini.files').setup()
 
@@ -146,27 +145,20 @@ now(function()
   vim.keymap.set('n', '<leader>e', '<cmd>lua MiniFiles.open()<cr>', { desc = 'Open file explorer' })
 end)
 
+-- fuzzy finder
 later(function()
-  require('mini.pick').setup()
-
-  vim.ui.select = MiniPick.ui_select
-  vim.keymap.set('n', '<space>f', function()
-    MiniPick.builtin.files({ tool = 'git' })
-  end, { desc = 'mini.pick.files' })
-
-  vim.keymap.set('n', '<space>b', function()
-    local wipeout_cur = function()
-      vim.api.nvim_buf_delete(MiniPick.get_picker_matches().current.bufnr, {})
-    end
-    local buffer_mappings = { wipeout = { char = '<c-d>', func = wipeout_cur } }
-    MiniPick.builtin.buffers({ include_current = false }, { mappings = buffer_mappings })
-  end, { desc = 'mini.pick.buffers' })
-
-  require('mini.visits').setup()
-  vim.keymap.set('n', '<space>h', function()
-    require('mini.extra').pickers.visit_paths()
-  end, { desc = 'mini.extra.visit_paths' })
-
+  add({
+    source = 'nvim-telescope/telescope.nvim',
+    checkout = '0.1.8',
+    depends = {
+      'nvim-lua/plenary.nvim'
+    }
+  })
+  -- Using Lua functions
+  local builtin = require('telescope.builtin')
+  vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
+  vim.keymap.set('n', '<leader>g', builtin.live_grep, { desc = 'Telescope live grep' })
+  vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Telescope buffers' })
 end)
 
 -- バッファ操作
