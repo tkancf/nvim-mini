@@ -175,6 +175,16 @@ end)
 later(function()
   require('mini.surround').setup()
 end)
+-- git
+later(function()
+  require('mini.diff').setup()
+end)
+
+later(function()
+  require('mini.git').setup()
+
+  vim.keymap.set({ 'n', 'x' }, '<space>gs', MiniGit.show_at_cursor, { desc = 'Show at cursor' })
+end)
 -- completion
 now(function()
   add('hrsh7th/nvim-cmp')
