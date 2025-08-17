@@ -171,6 +171,10 @@ end)
 later(function()
   require('mini.pairs').setup()
 end)
+
+later(function()
+  require('mini.surround').setup()
+end)
 -- completion
 now(function()
   add('hrsh7th/nvim-cmp')
