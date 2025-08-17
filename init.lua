@@ -20,7 +20,7 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 vim.o.ambiwidth = 'single'
 vim.o.autochdir = false
 vim.o.autoindent = true
-vim.o.conceallevel = 0
+vim.o.conceallevel = 2
 vim.o.encoding = 'utf-8'
 vim.o.expandtab = true
 vim.o.foldlevel = 1
@@ -236,7 +236,7 @@ end)
 -- Obsidian.nvim
 now(function()
   add('obsidian-nvim/obsidian.nvim')
-  local vault_path = "~/Dropbox/Note"
+  local vault_path = "~/src/github.com/tkancf/tkancf.com/content/"
   require("obsidian").setup {
     legacy_commands = false,
     ui = {
@@ -286,7 +286,7 @@ now(function()
     ---@return string
     note_id_func = function()
       -- Generate a unique ID YYYYMMDDHHMMSS format
-      return tostring(os.date("%Y%m%d%H%M%S"))
+      return "blog/" .. tostring(os.date("%Y%m%d%H%M%S"))
     end,
     ---@return table
     note_frontmatter_func = function(note)
