@@ -441,7 +441,12 @@ now(function()
 
         },
       })
-      local vault_path = "~/src/github.com/tkancf/tkancf.com/content/"
+      vault_path = os.getenv("OBSIDIAN_VAULT_PATH")
+
+      if vault_path == nil then
+        vault_path = "~/src/github.com/tkancf/tkancf.com/content/"
+      end
+
       require("obsidian").setup {
         legacy_commands = false,
         ui = {
@@ -491,7 +496,11 @@ now(function()
         ---@return string
         note_id_func = function()
           -- Generate a unique ID YYYYMMDDHHMMSS format
-          return "blog/" .. tostring(os.date("%Y%m%d%H%M%S"))
+          if vault_path == nil then
+            return "blog/" .. tostring(os.date("%Y%m%d%H%M%S"))
+          else
+            return tostring(os.date("%Y%m%d%H%M%S"))
+          end
         end,
         ---@return table
         note_frontmatter_func = function(note)
