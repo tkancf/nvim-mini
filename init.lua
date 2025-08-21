@@ -129,14 +129,21 @@ end)
 
 -- ハイライト追加
 later(function()
+  vim.api.nvim_set_hl(0, 'MiniHipatternsNext', { fg = '#000000', bg = '#CA5CE6', bold = true })
+  vim.api.nvim_set_hl(0, 'MiniHipatternsDone', { fg = '#000000', bg = '#f1c6e2', bold = true })
+  vim.api.nvim_set_hl(0, 'MiniHipatternsWait', { fg = '#000000', bg = '#FFD700', bold = true })
+  vim.api.nvim_set_hl(0, 'MiniHipatternsWill', { fg = '#000000', bg = '#A99663', bold = true })
   local hipatterns = require('mini.hipatterns')
   local hi_words = require('mini.extra').gen_highlighter.words
   hipatterns.setup({
     highlighters = {
       todo = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
       wip  = hi_words({ 'WIP' }, 'MiniHipatternsHack'),
-      done = hi_words({ 'DONE' }, 'MiniHipatternsFixme'),
+      done = hi_words({ 'DONE' }, 'MiniHipatternsDone'),
       sche = hi_words({ 'SCHE' }, 'MiniHipatternsNote'),
+      next = hi_words({ 'NEXT' }, 'MiniHipatternsNext'),
+      wait = hi_words({ 'WAIT' }, 'MiniHipatternsWait'),
+      will = hi_words({ 'WILL' }, 'MiniHipatternsWill'),
       -- Highlight hex color strings (`#rrggbb`) using that color
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
