@@ -204,6 +204,18 @@ later(function()
   }
 end)
 
+later(function()
+  add({
+    source = "tkancf/telescope-markdown-frontmatter.nvim",
+    depends = {
+      'nvim-telescope/telescope.nvim',
+    }
+  })
+  -- Search specific fields
+  vim.keymap.set("n", "<leader>o", function()
+    require("telescope").extensions.markdown_frontmatter.title()
+  end, { desc = "Telescope Obsidian Title" })
+end)
 -- バッファ操作
 
 later(function()
