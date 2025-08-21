@@ -127,6 +127,11 @@ later(function()
   vim.keymap.set('n', 'RR', 'R', { desc = 'Replace mode' })
 end)
 
+-- markdown preview
+later(function()
+  add('skanehira/preview-markdown.vim')
+end)
+
 -- ハイライト追加
 later(function()
   vim.api.nvim_set_hl(0, 'MiniHipatternsNext', { fg = '#000000', bg = '#CA5CE6', bold = true })
