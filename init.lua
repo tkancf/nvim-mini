@@ -80,7 +80,7 @@ end)
 now(function()
   require('mini.statusline').setup()
   vim.opt.laststatus = 2
-  vim.opt.cmdheight = 0
+  vim.opt.cmdheight = 2
 end)
 
 -- 通知
